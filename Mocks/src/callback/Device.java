@@ -5,17 +5,39 @@ package callback;
  * @author prithvi
  *
  */
-public class Device implements DeviceListener
+public class Device
 {
-	@Override
-	public void triggerShutdown(ShutdownEvent e)
+	protected String name = null;
+	protected DeviceListener dl;
+	
+	public Device(String name, DeviceListener dl)
 	{
-		System.out.println(e.toString() + " -> Initiating shutdown.");
+		this.name = name;
+		this.dl = dl;
 	}
 
-	@Override
-	public boolean isDeviceRunning()
+	public void shutdown(ShutdownEvent e)
 	{
-		return false;
+		System.out.println("[" + getClass().getName() + "] " 
+				+ toString()
+				+ " -> Initiating shutdown....");
+		
+		dl.shutdownInitiated(e);
+		
+		// code for shutdown.
+		
+		System.out.println("[" + getClass().getName() + "] " 
+				+ toString()
+				+ " -> Shutdown completed.");
+		
+		dl.shutdownComplete();
 	}
+
+	public boolean isDeviceRunning()
+	{ return true; }
+
+	@Override
+	public String toString()
+	{ return "** Device [name=" + name + "] **"; }
+	
 }

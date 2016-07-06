@@ -44,7 +44,7 @@ public class TestMathUtilsParameterized {
 	}
 
 	/**
-	 * Test code for public static Collection<Object[]> data()
+	 * Inspection code for public static Collection<Object[]> data()
 	 * 
 	 * @param args
 	 */

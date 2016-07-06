@@ -4,8 +4,8 @@ public class Driver
 {
 	public static void main(String[] args)
 	{
-		DeviceController dc = new DeviceController(new Device());
+		Device d = new Device("test_device", new DeviceListenerImpl());
 		
-		dc.shutdown(new ShutdownEvent(dc.getClass().getName(), new Integer(1000)));
+		d.shutdown(new ShutdownEvent(d.getClass().getName(), new Integer(1000)));
 	}
 }

@@ -21,6 +21,6 @@ public class ShutdownEvent
 	@Override
 	public String toString()
 	{
-		return "ShutdownEvent [source=" + source + ", exitCode=" + exitCode + "]";
+		return "** ShutdownEvent [source=" + source + ", exitCode=" + exitCode + "] **";
 	}
 }

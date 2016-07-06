@@ -3,13 +3,13 @@ package callback;
 public interface DeviceListener
 {
 	/**
-	 * Triggers device shutdown.
+	 * Callback for device shutdown initiation.
 	 * @param e Shutdown event object
 	 */
-	public void triggerShutdown(ShutdownEvent e);
+	public void shutdownInitiated(ShutdownEvent e);
+	
 	/**
-	 * Returns the state of the device.
-	 * @return True for running/paused, False for stopped.
+	 * Callback on shutdown completion.
 	 */
-	public boolean isDeviceRunning();
+	public void shutdownComplete();
 }
