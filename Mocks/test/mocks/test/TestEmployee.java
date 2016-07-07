@@ -44,7 +44,7 @@ public class TestEmployee
 	}
 	
 	@Test
-	public void testGetCount()
+	public void testAddToList()
 	{
 		List<Employee> empList = new ArrayList<Employee>();
 		
@@ -55,7 +55,7 @@ public class TestEmployee
 	}
 	
 	@Test
-	public void testAddConsultant()
+	public void testCreation()
 	{
 		try 
 		{
