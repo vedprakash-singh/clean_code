@@ -1,8 +1,11 @@
 package mocks.test;
 
+import modifier.Modifiers;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -19,7 +22,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
  *
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(value = Modifier.class)
+@PrepareForTest(value = Modifiers.class)
 public class TestModifiers
 {
 	/**
@@ -40,13 +43,13 @@ public class TestModifiers
 	@Test
 	public void testStaticMethod1()
 	{
-		PowerMockito.mockStatic(Modifier.class);
+		PowerMockito.mockStatic(Modifiers.class);
 		
-		PowerMockito.when(Modifier.staticMethod()).thenReturn(true);
-		Assert.assertEquals(Modifier.staticMethod(), true);
+		PowerMockito.when(Modifiers.staticMethod()).thenReturn(true);
+		Assert.assertEquals(Modifiers.staticMethod(), true);
 		
-		Modifier.staticMethod();
-		Modifier.staticMethod();
+		Modifiers.staticMethod();
+		Modifiers.staticMethod();
 
 		// Modifier.staticMethod() is called 3 times above
 		PowerMockito.verifyStatic(Mockito.times(3));
@@ -55,7 +58,7 @@ public class TestModifiers
 		 * Need to call Modifier.staticMethod() again to make 
 		 * verifyStatic work.
 		 */
-		Modifier.staticMethod();
+		Modifiers.staticMethod();
 	}
 	
 	/**
@@ -64,7 +67,7 @@ public class TestModifiers
 	@Test
 	public void testPrivateMethod()
 	{
-		Modifier spy = PowerMockito.spy(PowerMockito.mock(Modifier.class));
+		Modifiers spy = PowerMockito.spy(PowerMockito.mock(Modifiers.class));
 		
 		try 
 		{
@@ -92,9 +95,14 @@ public class TestModifiers
 	@Test
 	public void testProtectedMethod()
 	{
-		Modifier spy = PowerMockito.spy(PowerMockito.mock(Modifier.class));
+		Modifiers spy = PowerMockito.spy(PowerMockito.mock(Modifiers.class));
 		
-		PowerMockito.when(spy.protectedMethod()).thenReturn(true);
+		try 
+		{
+			PowerMockito.when(spy, "protectedMethod").thenReturn(true);
+		}
+		catch (Exception e) 
+		{ e.printStackTrace(); }
 
 		Assert.assertEquals(spy.publicMethod2(), true);
 	}
@@ -105,27 +113,19 @@ public class TestModifiers
 	@Test
 	public void testConstructor()
 	{
+		Modifiers m = PowerMockito.mock(Modifiers.class);
 		
+		try 
+		{
+			PowerMockito.whenNew(Modifiers.class)
+				.withArguments(Mockito.anyBoolean())
+				.thenReturn(m);
+			
+			Modifiers mod = new Modifiers(true);
+			
+			PowerMockito.verifyNew(Modifiers.class).withArguments(Mockito.anyBoolean());
+		}
+		catch (Exception e) 
+		{ e.printStackTrace(); }
 	}
-}
-
-final class Modifier
-{
-	private boolean privateMethod1() 
-	{ return false; }
-	
-	private boolean privateMethod2() 
-	{ return privateMethod1(); }
-	
-	public final boolean publicMethod1()
-	{ return privateMethod2(); }
-
-	protected boolean protectedMethod()
-	{ return false; }
-
-	public final boolean publicMethod2()
-	{ return protectedMethod(); }
-	
-	public static boolean staticMethod()
-	{ return false; }
 }
