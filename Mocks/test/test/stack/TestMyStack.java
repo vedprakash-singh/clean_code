@@ -1,4 +1,4 @@
-package mocks.test;
+package test.stack;
 
 import java.util.Iterator;
 

@@ -1,4 +1,4 @@
-package mocks.test;
+package test.modifier;
 
 import modifier.Modifiers;
 

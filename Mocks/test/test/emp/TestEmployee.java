@@ -1,4 +1,4 @@
-package mocks.test;
+package test.emp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -25,6 +26,12 @@ public class TestEmployee
 	@Before
 	public void setUp()
 	{
+		/**
+		 * Initializes the mocks else the recordings 
+		 * on the mocks will be stored.
+		 */
+		MockitoAnnotations.initMocks(this);
+		
 		try 
 		{
 			PowerMockito.whenNew(Employee.class)
